@@ -1,0 +1,995 @@
+{
+	"info": {
+		"_postman_id": "63130ea1-1538-4487-9dd7-5cd7078c7367",
+		"name": "CodeChallenge",
+		"description": "Pruebas para los controladores",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Ping",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"response should be okay to process\", function () {\r",
+							"    pm.response.to.not.be.error;\r",
+							"    pm.response.text(\"Pong\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type header is application/json\", () => {\r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('text/plain; charset=utf-8');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:58057/ping",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "58057",
+					"path": [
+						"ping"
+					]
+				},
+				"description": "Request que se encarga de comprobar el controlador ping que da la respuesta pong"
+			},
+			"response": []
+		},
+		{
+			"name": "Post dog",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", () => {\r",
+							"  pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code name has string\", () => {\r",
+							"  pm.response.to.have.status(\"Created\");\r",
+							"});\r",
+							"\r",
+							"const jsonData = pm.response.json();\r",
+							"pm.globals.set(\"id_dog\", jsonData.id);\r",
+							"pm.globals.set(\"photo_dog\", jsonData.photo);\r",
+							"pm.test(\"Dog is Yuma\", () => {\r",
+							"  pm.expect(jsonData.name).to.eql(\"Yuma\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Dog age is 3\", () => {\r",
+							"  pm.expect(jsonData.age).to.eql(3);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Dog weight is 13.4\", () => {\r",
+							"  pm.expect(jsonData.weight).to.eql(13.4);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type header is application/json\", () => {\r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json; charset=utf-8');\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Yuma\",\r\n  \"weight\": 13.4,\r\n  \"age\": 3\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:58057/dog",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "58057",
+					"path": [
+						"dog"
+					]
+				},
+				"description": "Request que se encarga de postear un perro"
+			},
+			"response": []
+		},
+		{
+			"name": "Post false information Bad Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", () => {\r",
+							"  pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type header is application/problem+json\", () => {\r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/problem+json; charset=utf-8');\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"profile\": \"user\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:58057/dog",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "58057",
+					"path": [
+						"dog"
+					]
+				},
+				"description": "Request que se encarga de comprobar que pasa si el usuario introduce un parámetro que no existe"
+			},
+			"response": []
+		},
+		{
+			"name": "Post nothing Bad Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", () => {\r",
+							"  pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type header is application/problem+json\", () => {\r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/problem+json; charset=utf-8');\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:58057/dog",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "58057",
+					"path": [
+						"dog"
+					]
+				},
+				"description": "Request que se encarga de comprobar que pasa si el usuario no introduce ninguna información"
+			},
+			"response": []
+		},
+		{
+			"name": "Post dog with null name Bad Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", () => {\r",
+							"  pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type header is application/problem+json\", () => {\r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/problem+json; charset=utf-8');\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": null,\r\n  \"weight\": 40,\r\n  \"age\": 6,\r\n  \"photo\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:58057/dog",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "58057",
+					"path": [
+						"dog"
+					]
+				},
+				"description": "Request que se encarga de comprobar que ocurre si el usuario introduce el nombre del perro nulo"
+			},
+			"response": []
+		},
+		{
+			"name": "Post dog with negative weight Bad Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", () => {\r",
+							"  pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type header is application/problem+json\", () => {\r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/problem+json; charset=utf-8');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Yuma\",\r\n  \"weight\": -20,\r\n  \"age\": 6,\r\n  \"photo\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:58057/dog",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "58057",
+					"path": [
+						"dog"
+					]
+				},
+				"description": "Request que se encarga de comprobar que ocurre si el usuario introduce el peso negativo"
+			},
+			"response": []
+		},
+		{
+			"name": "Post dog with negative age Bad Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", () => {\r",
+							"  pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type header is application/problem+json\", () => {\r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/problem+json; charset=utf-8');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Yuma\",\r\n  \"weight\": 20,\r\n  \"age\": -6,\r\n  \"photo\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:58057/dog",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "58057",
+					"path": [
+						"dog"
+					]
+				},
+				"description": "Request que se encarga de comprobar que ocurre si el usuario introduce la edad del perro negativa"
+			},
+			"response": []
+		},
+		{
+			"name": "Get dogs",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {\r",
+							"  pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"const jsonData = pm.response.json();\r",
+							"pm.test(\"Test data type of the response\", () => {\r",
+							"  pm.expect(jsonData).to.be.an(\"array\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type header is application/json\", () => {\r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json; charset=utf-8');\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:58057/dog",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "58057",
+					"path": [
+						"dog"
+					]
+				},
+				"description": "Request que se encarga de obtener todos los perros que se encuentren registrados"
+			},
+			"response": []
+		},
+		{
+			"name": "Get dog by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {\r",
+							"  pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"const jsonData = pm.response.json();\r",
+							"pm.test(\"Test data type of the response\", () => {\r",
+							"  pm.expect(jsonData.id).to.be.an(\"string\");\r",
+							"  pm.expect(jsonData.name).to.be.an(\"string\");\r",
+							"  pm.expect(jsonData.age).to.be.an(\"number\");\r",
+							"  pm.expect(jsonData.weight).to.be.an(\"number\");\r",
+							"  pm.expect(jsonData.photo).to.be.an(\"string\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type header is application/json\", () => {\r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json; charset=utf-8');\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:58057/dog/{{id_dog}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "58057",
+					"path": [
+						"dog",
+						"{{id_dog}}"
+					]
+				},
+				"description": "Request encargada de obtener un perro según su id. Genera problemas ya que los ids van a cambiar según el momento de ejecución, se debería primero hacer un post primero, después de ello obtener el id y luego introducirlo en la url de la request"
+			},
+			"response": []
+		},
+		{
+			"name": "Get dog by false id ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", () => {\r",
+							"  pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"const jsonData = pm.response.json();\r",
+							"pm.test(\"title string is Not Found\", () => {\r",
+							"  pm.expect(jsonData.title).to.eql(\"Not Found\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type header is application/problem+json\", () => {\r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/problem+json; charset=utf-8');\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:58057/dog/23",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "58057",
+					"path": [
+						"dog",
+						"23"
+					]
+				},
+				"description": "Request encargada de comprobar el funcionamiento de obtener un perro si el id introducido no existe"
+			},
+			"response": []
+		},
+		{
+			"name": "Get dog by null id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", () => {\r",
+							"  pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"const jsonData = pm.response.json();\r",
+							"pm.test(\"title string is Bad Request\", () => {\r",
+							"  pm.expect(jsonData.title).to.eql(\"Bad Request\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type header is application/problem+json\", () => {\r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/problem+json; charset=utf-8');\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:58057/dog/ /",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "58057",
+					"path": [
+						"dog",
+						" ",
+						""
+					]
+				},
+				"description": "Request que se encarga de comprobar que no encuentra un perro con un id nulo"
+			},
+			"response": []
+		},
+		{
+			"name": "Put dog by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {\r",
+							"  pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"const jsonData = pm.response.json();\r",
+							"pm.test(\"Test data type of the response\", () => {\r",
+							"  pm.expect(jsonData.id).to.be.an(\"string\");\r",
+							"  pm.expect(jsonData.name).to.be.an(\"string\");\r",
+							"  pm.expect(jsonData.age).to.be.an(\"number\");\r",
+							"  pm.expect(jsonData.weight).to.be.an(\"number\");\r",
+							"  pm.expect(jsonData.photo).to.be.an(\"string\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Dog is Pixi\", () => {\r",
+							"  pm.expect(jsonData.name).to.eql(\"Pixi\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Dog age is 6\", () => {\r",
+							"  pm.expect(jsonData.age).to.eql(6);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Dog weight is 12.8\", () => {\r",
+							"  pm.expect(jsonData.weight).to.eql(12.8);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type header is application/json\", () => {\r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json; charset=utf-8');\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"{{id_dog}}\",\r\n  \"name\": \"Pixi\",\r\n  \"weight\": 12.8,\r\n  \"age\": 6,\r\n  \"photo\": \"{{photo_dog}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:58057/dog/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "58057",
+					"path": [
+						"dog",
+						""
+					]
+				},
+				"description": "Request que se encarga de modificar los atributos de un perro. Esta prueba generará problemas ya que el id va a cambiar la siguiente vez que se ejecute la aplicación, para solucionarlo habría que modificar el id de esta request por el id de un perro que si exista"
+			},
+			"response": []
+		},
+		{
+			"name": "Put dog by false id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", () => {\r",
+							"  pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"const jsonData = pm.response.json();\r",
+							"pm.test(\"title string is Not Found\", () => {\r",
+							"  pm.expect(jsonData.title).to.eql(\"Not Found\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type header is application/problem+json\", () => {\r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/problem+json; charset=utf-8');\r",
+							"});\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"22222222222222222222222222222222222222222222222222222222\",\r\n  \"name\": \"Pixi\",\r\n  \"weight\": 12.8,\r\n  \"age\": 6,\r\n  \"photo\": \"{{photo_dog}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:58057/dog/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "58057",
+					"path": [
+						"dog",
+						""
+					]
+				},
+				"description": "Request que se encarga de tratar de modificar un perro con un id inexistente"
+			},
+			"response": []
+		},
+		{
+			"name": "Put dog by null id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", () => {\r",
+							"  pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"const jsonData = pm.response.json();\r",
+							"pm.test(\"title string is Bad Request\", () => {\r",
+							"  pm.expect(jsonData.title).to.eql(\"Bad Request\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type header is application/problem+json\", () => {\r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/problem+json; charset=utf-8');\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Pixi\",\r\n  \"weight\": 12.8,\r\n  \"age\": 6\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:58057/dog/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "58057",
+					"path": [
+						"dog",
+						""
+					]
+				},
+				"description": "Request que se encarga de tratar de modificar un perro con un id nulo"
+			},
+			"response": []
+		},
+		{
+			"name": "Put dog with empty id in body",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", () => {\r",
+							"  pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"const jsonData = pm.response.json();\r",
+							"pm.test(\"title string is Bad Request\", () => {\r",
+							"  pm.expect(jsonData.title).to.eql(\"Bad Request\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type header is application/problem+json\", () => {\r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/problem+json; charset=utf-8');\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"\",\r\n  \"name\": \"Pixi\",\r\n  \"weight\": 12.8,\r\n  \"age\": 6\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:58057/dog/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "58057",
+					"path": [
+						"dog",
+						""
+					]
+				},
+				"description": "Request encargada de comprobar el comportamiento del Put de un perro en el caso de que el id sea una cadena vacía."
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a dog  by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {\r",
+							"  pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"const jsonData = pm.response.json();\r",
+							"pm.test(\"Test data type of the response\", () => {\r",
+							"  pm.expect(jsonData.id).to.be.an(\"string\");\r",
+							"  pm.expect(jsonData.name).to.be.an(\"string\");\r",
+							"  pm.expect(jsonData.age).to.be.an(\"number\");\r",
+							"  pm.expect(jsonData.weight).to.be.an(\"number\");\r",
+							"  pm.expect(jsonData.photo).to.be.an(\"string\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type header is application/json\", () => {\r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json; charset=utf-8');\r",
+							"});\r",
+							"\r",
+							"pm.globals.unset(\"id_dog\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:58057/dog/{{id_dog}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "58057",
+					"path": [
+						"dog",
+						"{{id_dog}}"
+					]
+				},
+				"description": "Request que se encarga de eliminar un perro según el id. Este test generará problemas ya que los ids no van a ser los mismos después de la siguiente ejecución, se debería preparar un post antes y obtener el id para posteriormente introducirlo en la URL."
+			},
+			"response": []
+		},
+		{
+			"name": "Delete dog by false id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", () => {\r",
+							"  pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"const jsonData = pm.response.json();\r",
+							"pm.test(\"title string is Not Found\", () => {\r",
+							"  pm.expect(jsonData.title).to.eql(\"Not Found\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type header is application/problem+json\", () => {\r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/problem+json; charset=utf-8');\r",
+							"});\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:58057/dog/14109841820902202112340822222222222222222222222222",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "58057",
+					"path": [
+						"dog",
+						"14109841820902202112340822222222222222222222222222"
+					]
+				},
+				"description": "Request encargada de eliminar un perro introduciendo un id no válido, que no le pertenece a ningún perro"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete dog by null id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", () => {\r",
+							"  pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"const jsonData = pm.response.json();\r",
+							"pm.test(\"title string is Bad Request\", () => {\r",
+							"  pm.expect(jsonData.title).to.eql(\"Bad Request\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type header is application/problem+json\", () => {\r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/problem+json; charset=utf-8');\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:58057/dog/ /",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "58057",
+					"path": [
+						"dog",
+						" ",
+						""
+					]
+				},
+				"description": "Request que se encarga de eliminar un perro con un id nulo"
+			},
+			"response": []
+		}
+	]
+}
