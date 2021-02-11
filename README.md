@@ -10,12 +10,10 @@ En sistemas Unix se puede instalar con el siguiente comando
 ```
 sudo apt install git
 ```
-* **.NET Core** - Para instalar .NET hay que descargárselo de la página web de [Microsoft](https://docs.microsoft.com/es-es/aspnet/core/getting-started/?view=aspnetcore-3.1&tabs=windows).
 * **Visual Studio** - En este caso se ha utilizado el IDE [VisualStudio](https://visualstudio.microsoft.com/es/vs/).
 Asegurarse de que en Visual Studio tenemos instalado la carga de trabajo desarrollo de ASP. NET Core:
-[
+
 ![image](https://media.discordapp.net/attachments/362157432534990848/809512096915652638/unknown.png?width=1200&height=670)
-](url)
 
 * **Postman** - Para el control de pruebas [Postman](https://www.postman.com/downloads/).
 
