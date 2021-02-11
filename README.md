@@ -69,6 +69,12 @@ Para poder probarlo necesitamos ejecutar Postman y darle clic a Import con la fu
 
 ![image](https://cdn.discordapp.com/attachments/362157432534990848/809514858898784266/unknown.png)
 
+Una vez cargada la colección procedamos a iniciar las pruebas. Antes que nada asegurarse de que la aplicación está corriendo en Visual Studio para que no haya errores.
+
+Para ejecutar las pruebas seleccionamos la colección y presionamos el play, debería salir una pestaña donde nos permita ejecutar Run y probar los tests.
+
+![image](https://cdn.discordapp.com/attachments/362157432534990848/809515922259312700/unknown.png)
+
 ## Construido con 🛠️
 
 * [C#](https://docs.microsoft.com/es-es/dotnet/csharp/) - Lenguaje usado
