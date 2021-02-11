@@ -12,6 +12,11 @@ sudo apt install git
 ```
 * **.NET Core** - Para instalar .NET hay que descargárselo de la página web de [Microsoft](https://docs.microsoft.com/es-es/aspnet/core/getting-started/?view=aspnetcore-3.1&tabs=windows).
 * **Visual Studio** - En este caso se ha utilizado el IDE [VisualStudio](https://visualstudio.microsoft.com/es/vs/).
+Asegurarse de que en Visual Studio tenemos instalado la carga de trabajo desarrollo de ASP. NET Core:
+[
+![image](https://media.discordapp.net/attachments/362157432534990848/809512096915652638/unknown.png?width=1200&height=670)
+](url)
+
 * **Postman** - Para el control de pruebas [Postman](https://www.postman.com/downloads/).
 
 
@@ -22,7 +27,7 @@ Vamos a clonar el repositorio y abrirlo en Visual Studio.
 Para instalar la aplicación desde GitHub hay que abrir una terminal de comandos y clonar el repositorio. Para clonarlo hay que ejecutar el siguiente comando:
 
 ```
-git clone
+git clone https://github.com/JavierLima/CodeChallengue.git
 ```
 Una vez clonado el repositorio procedemos a abrirlo con nuestro IDE de desarrollo.
 
@@ -60,8 +65,9 @@ Las pruebas con Postman se han hecho con el fin de probar el despliegue de las p
 
 A través de una colección se han añadido distintas pruebas escritas en JavaScript que verifican el correcto funcionamiento de la API.
 
-Para poder probarlo necesitamos ejecutar Postman.
+Para poder probarlo necesitamos ejecutar Postman y darle clic a Import con la funcionalidad de File, deberías o seleccionar el archivo o arrastralo a Postman.
 
+![image](https://cdn.discordapp.com/attachments/362157432534990848/809514858898784266/unknown.png)
 
 ## Construido con 🛠️
 
