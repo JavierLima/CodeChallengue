@@ -29,7 +29,7 @@ git clone https://github.com/JavierLima/CodeChallengue.git
 ```
 Una vez clonado el repositorio procedemos a abrirlo con nuestro IDE de desarrollo.
 
-Para abrir el proyecto hay que acceder al IDE y una vez dentro saldrá la opción de cargar un proyecto desde una carpeta local.
+Para abrir el proyecto hay que acceder al IDE y una vez dentro saldrá la opción de cargar un proyecto desde un proyecto o solución.
 
 [
 ![image](https://user-images.githubusercontent.com/40237259/107687677-143fdd00-6ca7-11eb-9957-9cd0ca89d6e0.png)
@@ -43,7 +43,7 @@ Para ejecutar el programa en una máquina local debemos clicar el siguiente play
 
 ![image](https://user-images.githubusercontent.com/40237259/107688868-6b927d00-6ca8-11eb-8431-bddea05b30e1.png)
 
-Una vez que cliquemos el play podremos saber si todo ha ido bien debería aparecer la siguiente página web "http://localhost:58057/swagger/index.html" con la documentación de swagger.
+Una vez que cliquemos el play podremos saber si todo ha ido bien, debería aparecer la siguiente página web "http://localhost:58057/swagger/index.html" con la documentación de swagger.
 
 ## Ejecutando las pruebas ⚙️
 
@@ -63,7 +63,7 @@ Las pruebas con Postman se han hecho con el fin de probar el despliegue de las p
 
 A través de una colección se han añadido distintas pruebas escritas en JavaScript que verifican el correcto funcionamiento de la API.
 
-Para poder probarlo necesitamos ejecutar Postman y darle clic a Import con la funcionalidad de File, deberías o seleccionar el archivo o arrastralo a Postman.
+Para poder probarlo necesitamos ejecutar Postman y darle clic a Import con la funcionalidad de File, deberías seleccionar el archivo o arrastralo a Postman.
 
 ![image](https://cdn.discordapp.com/attachments/362157432534990848/809514858898784266/unknown.png)
 
